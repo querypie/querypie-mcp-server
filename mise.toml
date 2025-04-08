@@ -1,0 +1,19 @@
+[tools]
+"go" = '1.24'
+"asdf:oasdiff/asdf-oasdiff" = "latest"
+"goreleaser" = "latest"
+
+[tasks.release]
+run = """
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+export QUERYPIE_MCP_SERVER_CURRENT_VERSION=${QUERYPIE_MCP_SERVER_CURRENT_VERSION:-$(git tag --points-at HEAD | head -n1)}
+
+goreleaser release --clean
+
+envsubst '$QUERYPIE_MCP_SERVER_CURRENT_VERSION' < install.envsubst > install.sh
+gh release upload ${QUERYPIE_MCP_SERVER_CURRENT_VERSION} install.sh
+rm install.sh
+"""

@@ -1,0 +1,77 @@
+# yaml-language-server: $schema=https://goreleaser.com/static/schema.json
+version: 2
+
+project_name: querypie-mcp-server
+
+builds:
+  - id: querypie-mcp-server
+    env:
+      - CGO_ENABLED=0
+    targets:
+      - darwin_amd64
+      - darwin_arm64
+      - linux_amd64
+      - linux_arm64
+      - windows_386
+      - windows_amd64
+    ldflags:
+      - >
+        -s -w
+        -X github.com/querypie/querypie-mcp-server/internal/consts.Version={{ .Version }}
+        -X github.com/querypie/querypie-mcp-server/internal/consts.Commit={{ .Commit }}
+        -X github.com/querypie/querypie-mcp-server/internal/consts.Date={{ .Date }}
+    mod_timestamp: "{{ .CommitTimestamp }}"
+
+archives:
+  - name_template: "{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}"
+    wrap_in_directory: false
+    format_overrides:
+    - goos: windows
+      formats: ['zip']
+    files:
+      - LICENSE
+      - README.md
+
+release:
+  disable: false
+  skip_upload: false
+  extra_files:
+    - glob: ./openapis/*
+
+dockers:
+  - image_templates:
+      - ghcr.io/querypie/querypie-mcp-server:{{.Version}}-amd64
+    use: buildx
+    dockerfile: goreleaser.dockerfile
+    build_flag_templates:
+      - "--platform=linux/amd64"
+      - "--pull"
+      - "--label=org.opencontainers.image.created={{.Date}}"
+      - "--label=org.opencontainers.image.title={{.ProjectName}}"
+      - "--label=org.opencontainers.image.revision={{.FullCommit}}"
+      - "--label=org.opencontainers.image.version={{.Version}}"
+      - "--label=org.opencontainers.image.url=https://github.com/querypie/querypie-mcp-server"
+      - "--label=org.opencontainers.image.source=https://github.com/querypie/querypie-mcp-server"
+  - image_templates:
+      - ghcr.io/querypie/querypie-mcp-server:{{.Version}}-arm64
+    use: buildx
+    dockerfile: goreleaser.dockerfile
+    build_flag_templates:
+      - "--platform=linux/arm64"
+      - "--pull"
+      - "--label=org.opencontainers.image.created={{.Date}}"
+      - "--label=org.opencontainers.image.title={{.ProjectName}}"
+      - "--label=org.opencontainers.image.revision={{.FullCommit}}"
+      - "--label=org.opencontainers.image.version={{.Version}}"
+      - "--label=org.opencontainers.image.url=https://github.com/querypie/querypie-mcp-server"
+      - "--label=org.opencontainers.image.source=https://github.com/querypie/querypie-mcp-server"
+
+docker_manifests:
+  - name_template: "ghcr.io/querypie/querypie-mcp-server:latest"
+    image_templates:
+      - ghcr.io/querypie/querypie-mcp-server:{{.Version}}-amd64
+      - ghcr.io/querypie/querypie-mcp-server:{{.Version}}-arm64
+  - name_template: "ghcr.io/querypie/querypie-mcp-server:{{.Version}}"
+    image_templates:
+      - ghcr.io/querypie/querypie-mcp-server:{{.Version}}-amd64
+      - ghcr.io/querypie/querypie-mcp-server:{{.Version}}-arm64

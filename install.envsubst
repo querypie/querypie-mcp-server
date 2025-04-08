@@ -1,0 +1,98 @@
+#!/bin/sh
+set -eu
+
+#region logging setup
+info() {
+  echo >&2 "$@"
+}
+
+error() {
+  echo >&2 "$@"
+  exit 1
+}
+#endregion
+
+#region environment setup
+get_os() {
+  os="$(uname -s)"
+  if [ "$os" = Darwin ]; then
+    echo "darwin"
+  elif [ "$os" = Linux ]; then
+    echo "linux"
+  else
+    error "unsupported os: $os"
+  fi
+}
+
+get_arch() {
+  musl=""
+  if type ldd >/dev/null 2>/dev/null; then
+    libc=$(ldd /bin/ls | grep 'musl' | head -1 | cut -d ' ' -f1)
+    if [ -n "$libc" ]; then
+      musl="-musl"
+    fi
+  fi
+  arch="$(uname -m)"
+  if [ "$arch" = x86_64 ]; then
+    echo "x64$musl"
+  elif [ "$arch" = aarch64 ] || [ "$arch" = arm64 ]; then
+    echo "arm64$musl"
+  elif [ "$arch" = armv7l ]; then
+    echo "armv7$musl"
+  else
+    error "unsupported architecture: $arch"
+  fi
+}
+#endregion
+
+QUERYPIE_MCP_SERVER_VERSION="${QUERYPIE_MCP_SERVER_VERSION:-"$(echo "$QUERYPIE_MCP_SERVER_CURRENT_VERSION" | sed 's/v//g')"}"
+
+download_file() {
+  url="$1"
+  filename="$(basename "$url")"
+  cache_dir="$(mktemp -d)"
+  file="$cache_dir/$filename"
+
+  info "downloading..."
+
+  if command -v curl >/dev/null 2>&1; then
+    curl -#fLo "$file" "$url"
+  else
+    if command -v wget >/dev/null 2>&1; then
+      wget -O "$file" "$url" >"$stderr" 2>&1 || error "wget failed: $(cat "$stderr")"
+    else
+      error "curl or wget is required. Aborting."
+    fi
+  fi
+
+  echo "$file"
+}
+
+install() {
+  os="$(get_os)"
+  arch="$(get_arch)"
+  ext="tar.gz"
+  install_path="${HOME}/.local/bin/querypie-mcp-server"
+  install_dir="$(dirname "$install_path")"
+  tarball_url="https://github.com/querypie/querypie-mcp-server/releases/download/v${QUERYPIE_MCP_SERVER_VERSION}/querypie-mcp-server_${QUERYPIE_MCP_SERVER_VERSION}_${os}_${arch}.${ext}"
+  
+  cache_file=$(download_file "$tarball_url")
+
+  # extract tarball
+  mkdir -p "$install_dir"
+  rm -rf "$install_path"
+  cd "$(mktemp -d)"
+  
+  tar -xf "$cache_file"
+
+  mv querypie-mcp-server "$install_path"
+  info "querypie-mcp-server: installed successfully to $install_path"
+}
+
+after_finish_help() {
+  info ""
+  info "querypie-mcp-server: run \`$install_path --help\` to get started"
+}
+
+install
+after_finish_help
