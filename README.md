@@ -71,7 +71,7 @@ Add this into your `claude_desktop_config.json` (either at `~/Library/Applicatio
                 "https://your_querypie_url"
             ],
             "env": {
-                "QUERYPIE_API_KEY": "your_token",
+                "QUERYPIE_API_KEY": "your_token"
             }
         }
     }
@@ -97,7 +97,7 @@ Add this into your `~/cursor/mcp.json`
         "https://your_querypie_url"
       ],
       "env": {
-        "QUERYPIE_API_KEY": "your_token",
+        "QUERYPIE_API_KEY": "your_token"
       }
     }
   }
