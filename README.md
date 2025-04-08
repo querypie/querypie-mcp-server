@@ -58,19 +58,21 @@ querypie-mcp-server https://your_querypie_url \
 Add this into your `claude_desktop_config.json` (either at `~/Library/Application Support/Claude` on macOS or `C:\Users\NAME\AppData\Roaming\Claude` on Windows):
 
 ```json
-"mcpServers": {
-    "querypie": {
-        "command": "docker",
-        "args": [
-            "run",
-            "-e",
-            "QUERYPIE_API_KEY=${QUERYPIE_API_KEY}",
-            "-it",
-            "ghcr.io/querypie/querypie-mcp-server",
-            "https://your_querypie_url"
-        ],
-        "env": {
-            "QUERYPIE_API_KEY": "your_token",
+{
+    "mcpServers": {
+        "querypie": {
+            "command": "docker",
+            "args": [
+                "run",
+                "-e",
+                "QUERYPIE_API_KEY=${QUERYPIE_API_KEY}",
+                "-it",
+                "ghcr.io/querypie/querypie-mcp-server",
+                "https://your_querypie_url"
+            ],
+            "env": {
+                "QUERYPIE_API_KEY": "your_token",
+            }
         }
     }
 }
