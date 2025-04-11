@@ -3,11 +3,47 @@
 The MCP server for QueryPie for administrators to manage it.
 
 <a href="https://www.youtube.com/watch?v=nChu-sY9Cu8">
-  <img src="https://raw.githubusercontent.com/querypie/querypie-mcp-server/main/assets/querypie-ai-agent-demo.png" width="60%" alt="QueryPie Agent Demo">
+  <img src="https://raw.githubusercontent.com/querypie/querypie-mcp-server/main/assets/querypie-ai-agent-demo.png" width="50%" alt="QueryPie Agent Demo">
 </a>
 
 **▶ [Watch English Version](https://www.youtube.com/watch?v=nChu-sY9Cu8)**  
 **▶ [日本語版を見る (Watch Japanese Version)](https://www.youtube.com/watch?v=ujtD9UzH-Pw)**
+
+<br />
+
+## Key Usage Demo
+
+**📊 Dashboard with Instant Charts**
+
+Visualize your data instantly by turning query results into live charts and dashboards—without writing a single line of code.
+
+<img src="https://raw.githubusercontent.com/querypie/querypie-mcp-server/main/assets/chart.gif" width="800" alt="QueryPie Demo">
+
+<br />
+
+**💽 Monitor Disk & Memory Usage**
+
+Track server resource usage like disk space and memory in real time, and identify the most resource-intensive processes at a glance.
+
+<img src="https://raw.githubusercontent.com/querypie/querypie-mcp-server/main/assets/usage.gif" width="800" alt="QueryPie Demo">
+
+<br />
+
+**🕵️‍♂️ Detect Suspicious Behavior**
+
+Review access logs and detect abnormal user behavior, such as risky SQL commands or unauthorized server activity.
+
+<img src="https://raw.githubusercontent.com/querypie/querypie-mcp-server/main/assets/logs.gif" width="800" alt="QueryPie Demo">
+
+<br />
+
+**✨ And That’s Just the Beginning...**
+
+There’s so much more you can do—register assets, manage access, automate audits, and more. 
+
+It all depends on how you use QueryPie.  Start exploring and make it yours.
+
+<br />
 
 ## Installation
 
