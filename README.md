@@ -2,6 +2,12 @@
 
 The MCP server for QueryPie for administrators to manage it.
 
+[![QueryPie Agent Demo](https://img.youtube.com/vi/nChu-sY9Cu8/hqdefault.jpg)](https://www.youtube.com/watch?v=nChu-sY9Cu8)
+
+**▶ [Watch English Version](https://www.youtube.com/watch?v=nChu-sY9Cu8)**  
+**▶ [日本語版を見る](https://www.youtube.com/watch?v=ujtD9UzH-Pw)**
+
+
 ## Installation
 
 Prepare your QueryPie API key and URL.
