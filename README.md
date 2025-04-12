@@ -3,11 +3,11 @@
 The MCP server for QueryPie for administrators to manage it.
 
 <a href="https://www.youtube.com/watch?v=nChu-sY9Cu8">
-  <img src="https://raw.githubusercontent.com/querypie/querypie-mcp-server/main/assets/querypie-ai-agent-demo.png" width="50%" alt="QueryPie Agent Demo">
+  <img src="https://raw.githubusercontent.com/querypie/querypie-mcp-server/main/assets/querypie-ai-agent-demo.png" width="60%" alt="QueryPie Agent Demo">
 </a>
 
 **▶ [Watch English Version](https://www.youtube.com/watch?v=nChu-sY9Cu8)**  
-**▶ [日本語版を見る (Watch Japanese Version)](https://www.youtube.com/watch?v=ujtD9UzH-Pw)**
+**▶ [日本語版を見る](https://www.youtube.com/watch?v=ujtD9UzH-Pw)**
 
 <br />
 
