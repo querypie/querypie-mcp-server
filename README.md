@@ -107,6 +107,7 @@ Add this into your `claude_desktop_config.json` (either at `~/Library/Applicatio
             "command": "docker",
             "args": [
                 "run",
+                "--rm",
                 "-e",
                 "QUERYPIE_API_KEY=${QUERYPIE_API_KEY}",
                 "-it",
@@ -133,6 +134,7 @@ Add this into your `~/cursor/mcp.json`
       "type": "stdio",
       "args": [
         "run",
+        "--rm",
         "-e",
         "QUERYPIE_API_KEY=${QUERYPIE_API_KEY}",
         "-it",
