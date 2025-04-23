@@ -34,7 +34,7 @@ get_arch() {
   fi
   arch="$(uname -m)"
   if [ "$arch" = x86_64 ]; then
-    echo "x64$musl"
+    echo "amd64$musl"
   elif [ "$arch" = aarch64 ] || [ "$arch" = arm64 ]; then
     echo "arm64$musl"
   elif [ "$arch" = armv7l ]; then
