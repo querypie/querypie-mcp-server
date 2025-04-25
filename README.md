@@ -2,7 +2,7 @@
 
 The MCP server for QueryPie for administrators to manage it.
 
-<a href="https://www.youtube.com/watch?v=1x7MNWE1b38">
+<a href="https://www.youtube.com/watch?v=uJ8u9oHCiIM">
   <img src="https://raw.githubusercontent.com/querypie/querypie-mcp-server/main/assets/querypie-ai-hub.png" width="60%" alt="QueryPie Agent Demo">
 </a>
 
