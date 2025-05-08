@@ -10,6 +10,7 @@ import (
 	"net/url"
 	"os"
 	"regexp"
+	"strings"
 	"time"
 
 	"github.com/mark3labs/mcp-go/server"
@@ -36,16 +37,29 @@ func NewServer(querypieAPIKey string, querypieURL string, transport string, port
 	}
 }
 
-func (s *Server) Start(ctx context.Context, noCache bool) error {
+func (s *Server) Start(ctx context.Context, noCache bool, versionStr string) error {
 	slog.Info("• Starting MCP Server for QueryPie")
 
 	// getting version from the querypie server
 	slog.Info("• Getting version from the QueryPie", "url", s.querypieURL)
-	version, err := getVersion(s.querypieURL)
-	if err != nil {
-		return fmt.Errorf("failed to get version from %s: %w", s.querypieURL, err)
+
+	var (
+		version *Version
+		err     error
+	)
+	if strings.TrimSpace(versionStr) == "" {
+		version, err = getVersion(s.querypieURL)
+		if err != nil {
+			return fmt.Errorf("failed to get version from %v: %w", s.querypieURL, err)
+		}
+		slog.Info(fmt.Sprintf("   ✔ QueryPie version is automatically resolved: %v", version.String()))
+	} else {
+		version, err = NewVersionFromString(strings.TrimSpace(versionStr))
+		if err != nil {
+			return fmt.Errorf("failed to parse version '%v': %w", strings.TrimSpace(versionStr), err)
+		}
+		slog.Info(fmt.Sprintf("   ✔ QueryPie version is manually set: %v", version.String()))
 	}
-	slog.Info(fmt.Sprintf("   ✔ QueryPie version is resolved: %s", version.String()))
 
 	slog.Info("• Loading OpenAPI specification")
 
@@ -145,6 +159,19 @@ func (s *Server) Start(ctx context.Context, noCache bool) error {
 	}
 }
 
+func NewVersionFromString(str string) (*Version, error) {
+	re := regexp.MustCompile(`^v?([0-9]+).([0-9]+).([0-9]+)`)
+	matches := re.FindStringSubmatch(str)
+	if len(matches) != 4 {
+		return nil, fmt.Errorf("failed to parse version: %v", str)
+	}
+	return &Version{
+		Major: matches[1],
+		Minor: matches[2],
+		Patch: matches[3],
+	}, nil
+}
+
 type Version struct {
 	Major string
 	Minor string
@@ -179,15 +206,5 @@ func getVersion(querypieURL string) (*Version, error) {
 	}
 
 	version := body.Version
-	re := regexp.MustCompile(`^([0-9]+).([0-9]+).([0-9]+)`)
-	matches := re.FindStringSubmatch(version)
-	if len(matches) != 4 {
-		return nil, fmt.Errorf("failed to parse version from %s. (version=%s)", querypieURL, version)
-	}
-
-	return &Version{
-		Major: matches[1],
-		Minor: matches[2],
-		Patch: matches[3],
-	}, nil
+	return NewVersionFromString(version)
 }

@@ -19,6 +19,7 @@ var (
 	transportFlag string
 	portFlag      int
 	noCacheFlag   bool
+	versionFlag   string
 )
 
 var rootCmd = &cobra.Command{
@@ -68,7 +69,7 @@ var rootCmd = &cobra.Command{
 		}
 
 		server := server.NewServer(querypieAPIKey, args[0], transport, port, server.NewPromptServerOptions()...)
-		return server.Start(ctx, noCacheFlag)
+		return server.Start(ctx, noCacheFlag, versionFlag)
 	},
 }
 
@@ -84,9 +85,10 @@ func init() {
 	slog.SetDefault(logger)
 
 	// Set up command flags
-	rootCmd.Flags().StringVarP(&transportFlag, "transport", "t", "stdio", "Transport mode (stdio|sse)")
-	rootCmd.Flags().IntVarP(&portFlag, "port", "p", 8000, "Port number if transport is sse")
-	rootCmd.Flags().BoolVarP(&noCacheFlag, "no-cache", "n", false, "Do not cache the OpenAPI specification")
+	rootCmd.Flags().StringVarP(&transportFlag, "transport", "t", "stdio", "transport mode (stdio|sse)")
+	rootCmd.Flags().IntVarP(&portFlag, "port", "p", 8000, "port number if transport is sse")
+	rootCmd.Flags().BoolVarP(&noCacheFlag, "no-cache", "f", false, "do not cache the OpenAPI specification")
+	rootCmd.Flags().StringVar(&versionFlag, "querypie-version", "", "QueryPie version to use (e.g. 10.2.8).\nif not specified, automatically detect the version from the QueryPie server.")
 }
 
 func Execute() {
