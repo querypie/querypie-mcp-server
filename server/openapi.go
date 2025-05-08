@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"log/slog"
 	"net/http"
 	"net/url"
 	"path"
@@ -272,7 +273,10 @@ func convertSchemaToToolOption(schema *base.Schema) (SchemaType, []mcp.PropertyO
 	schemaType := SchemaTypeString
 	if schema != nil {
 		if len(schema.Type) > 0 {
-			schemaType = SchemaType(schema.Type[0])
+			if strings.ToLower(schema.Type[0]) != schema.Type[0] {
+				slog.Debug("   • Schema type is not lowercase. This may cause issues.", slog.String("type", schema.Type[0]))
+			}
+			schemaType = SchemaType(strings.ToLower(schema.Type[0]))
 		}
 		if schema.Pattern != "" {
 			promptOpts = append(promptOpts, mcp.Pattern(schema.Pattern))

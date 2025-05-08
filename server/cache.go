@@ -40,7 +40,15 @@ func writeOpenAPIToCache(version Version, spec []byte) error {
 
 func downloadOpenAPIFile(version Version, depth int) ([]byte, error) {
 	repositoryURL := "https://github.com/querypie/querypie-mcp-server"
-	openapiURL := fmt.Sprintf("%s/releases/download/v%s/%s-openapi.yaml", repositoryURL, consts.Version, strings.ReplaceAll(version.String(), ".", "-"))
+	filename := fmt.Sprintf("%s-openapi.yaml", strings.ReplaceAll(version.String(), ".", "-"))
+
+	var openapiURL string
+	if consts.Version == "0.0.0" {
+		openapiURL = fmt.Sprintf("%s/releases/latest/download/%s", repositoryURL, filename)
+	} else {
+		openapiURL = fmt.Sprintf("%s/releases/download/v%s/%s", repositoryURL, consts.Version, filename)
+	}
+
 	response, err := http.Get(openapiURL)
 	if err != nil {
 		return nil, fmt.Errorf("failed to get openapi.yaml from %s: %w", openapiURL, err)

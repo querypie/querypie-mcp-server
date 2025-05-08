@@ -33660,14 +33660,14 @@ paths:
           required: false
           schema:
             description: DB connection name
-            type: String
+            type: string
         - description: Database name
           in: query
           name: databaseName
           required: false
           schema:
             description: Database name
-            type: String
+            type: string
         - description: Schema name( Only applicable for Oracle DB )
           in: query
           name: schemaName
