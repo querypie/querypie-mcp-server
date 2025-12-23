@@ -1,147 +1,49 @@
-# QueryPie MCP
+# Notice
 
-The MCP server for QueryPie for administrators to manage it.
+## Notice (EN)
 
-<a href="https://www.youtube.com/watch?v=uJ8u9oHCiIM">
-  <img src="https://raw.githubusercontent.com/querypie/querypie-mcp-server/main/assets/querypie-ai-hub.png" width="60%" alt="QueryPie Agent Demo">
-</a>
+As of the December 2025 release, QueryPie ACP 11.5.0 includes the MCP Server feature built into the product by default.
 
-<br />
+- [QueryPie ACP Community Edition Installation Guide](https://docs.querypie.com/en/installation/querypie-acp-community-edition):
+  QueryPie ACP Community Edition is a distribution that lets you experience the core features of the Enterprise Edition for free right away.
+- [MCP Configuration Guide](https://docs.querypie.com/en/installation/querypie-acp-community-edition/mcp-configuration-guide):
+  You can configure various AI coding assistants to safely perform tasks using LLMs under QueryPie ACP’s access controls.
 
-## Key Usage Demo
+The MCP Server in this repository was provided to help LLMs/AI agents administer QueryPie ACP. However, this functionality has now been replaced by the MCP Server built into QueryPie ACP 11.5.0.
 
-**📊 Dashboard with Instant Charts**
+Therefore, this repository is no longer maintained and its use is not recommended. For the latest features and security, please use the MCP Server built into the product.
 
-Visualize your data instantly by turning query results into live charts and dashboards—without writing a single line of code.
+## お知らせ (JA)
 
-<img src="https://raw.githubusercontent.com/querypie/querypie-mcp-server/main/assets/chart.gif" width="800" alt="QueryPie Demo">
+2025年12月にリリースされた QueryPie ACP 11.5.0 から、MCP Server 機能が製品に標準搭載されています。
 
-<br />
+- [QueryPie ACP Community Edition インストールガイド](https://docs.querypie.com/ja/installation/querypie-acp-community-edition):
+  QueryPie ACP Community Edition は、Enterprise Edition の中核機能を無料で今すぐ体験できるディストリビューションです。
+- [MCP 設定ガイド](https://docs.querypie.com/ja/installation/querypie-acp-community-edition/mcp-configuration-guide):
+  各種 AI コーディングアシスタントが LLM を利用して実行する作業を、QueryPie ACP のアクセス制御下で安全に行えるように設定できます。
 
-**💽 Monitor Disk & Memory Usage**
+本リポジトリの MCP Server は、LLM/AI エージェントが QueryPie ACP を管理できるよう支援する目的で提供されてきました。しかし、この機能は QueryPie ACP 11.5.0 に内蔵された MCP Server に置き換えられました。
 
-Track server resource usage like disk space and memory in real time, and identify the most resource-intensive processes at a glance.
+そのため、本リポジトリは今後メンテナンスされず、使用は推奨されません。最新の機能とセキュリティのため、製品に内蔵された MCP Server をご利用ください。
 
-<img src="https://raw.githubusercontent.com/querypie/querypie-mcp-server/main/assets/usage.gif" width="800" alt="QueryPie Demo">
+## 알려드립니다 (KO)
 
-<br />
+2025년 12월 출시된 QueryPie ACP 11.5.0부터 MCP Server 기능이 제품에 기본으로 내장되었습니다.
 
-**🕵️‍♂️ Detect Suspicious Behavior**
+- [QueryPie ACP Community Edition 설치 안내](https://docs.querypie.com/ko/installation/querypie-acp-community-edition):
+  QueryPie ACP Community Edition은 Enterprise Edition의 핵심 기능을 무료로 바로 경험할 수 있는 배포판입니다.
+- [MCP 설정 가이드](https://docs.querypie.com/ko/installation/querypie-acp-community-edition/mcp-configuration-guide):
+  다양한 AI 코딩 어시스턴트가 LLM을 활용해 수행하는 작업을 QueryPie ACP의 접근 통제 하에서 안전하게 실행하도록 설정할 수 있습니다.
 
-Review access logs and detect abnormal user behavior, such as risky SQL commands or unauthorized server activity.
+이 리포지토리의 MCP Server는 LLM/AI Agent가 QueryPie ACP를 관리하도록 돕기 위한 목적으로 제공되어 왔습니다.
+그러나 이제 해당 기능은 QueryPie ACP 11.5.0에 내장된 MCP Server로 대체되었습니다.
 
-<img src="https://raw.githubusercontent.com/querypie/querypie-mcp-server/main/assets/logs.gif" width="800" alt="QueryPie Demo">
+따라서 본 리포지토리는 더 이상 유지·관리되지 않으며 사용을 권장하지 않습니다. 최신 기능과 보안을 위해 제품 내장 MCP Server를 이용해 주세요.
 
-<br />
 
-**✨ And That’s Just the Beginning...**
+---
 
-There’s so much more you can do—register assets, manage access, automate audits, and more. 
-
-It all depends on how you use QueryPie.  Start exploring and make it yours.
-
-<br />
-
-## Installation
-
-Prepare your QueryPie API key and URL.
-
-You can find the API key on <kbd>General</kbd> > <kbd>System</kbd> > <kbd>API Token</kbd> in the QueryPie web console.
-
-### Docker
-
-```bash
-# Stdio example
-export QUERYPIE_API_KEY=your_token
-export QUERYPIE_URL=https://your_querypie_url
-
-docker run --rm \
-    -e "QUERYPIE_API_KEY=${QUERYPIE_API_KEY}" \
-    ghcr.io/querypie/querypie-mcp-server "${QUERYPIE_URL}"
-```
-
-```bash
-# SSE example
-export QUERYPIE_API_KEY=your_token
-export QUERYPIE_URL=https://your_querypie_url
-
-docker run --rm \
-    -e "QUERYPIE_API_KEY=${QUERYPIE_API_KEY}" \
-    ghcr.io/querypie/querypie-mcp-server "${QUERYPIE_URL}" \
-    --transport sse \
-    --port 8000
-```
-
-### Linux/macOS
-
-```bash
-# Install the querypie-mcp-server binary to ~/.local/bin
-curl -L https://github.com/querypie/querypie-mcp-server/releases/latest/download/install.sh | sh
-```
-
-```bash
-# Stdio example
-export QUERYPIE_API_KEY=your_token
-querypie-mcp-server https://your_querypie_url
-```
-
-```bash
-# SSE example
-export QUERYPIE_API_KEY=your_token
-querypie-mcp-server https://your_querypie_url \
-    --transport sse \
-    --port 8000
-```
-
-### Claude Desktop
-
-Add this into your `claude_desktop_config.json` (either at `~/Library/Application Support/Claude` on macOS or `C:\Users\NAME\AppData\Roaming\Claude` on Windows):
-
-```json
-{
-    "mcpServers": {
-        "querypie": {
-            "command": "docker",
-            "args": [
-                "run",
-                "--rm",
-                "-e",
-                "QUERYPIE_API_KEY=${QUERYPIE_API_KEY}",
-                "-it",
-                "ghcr.io/querypie/querypie-mcp-server",
-                "https://your_querypie_url"
-            ],
-            "env": {
-                "QUERYPIE_API_KEY": "your_token"
-            }
-        }
-    }
-}
-```
-
-### Cursor
-
-Add this into your `~/cursor/mcp.json`
-
-```json
-{
-  "mcpServers": {
-    "querypie": {
-      "command": "docker",
-      "type": "stdio",
-      "args": [
-        "run",
-        "--rm",
-        "-e",
-        "QUERYPIE_API_KEY=${QUERYPIE_API_KEY}",
-        "-it",
-        "ghcr.io/querypie/querypie-mcp-server",
-        "https://your_querypie_url"
-      ],
-      "env": {
-        "QUERYPIE_API_KEY": "your_token"
-      }
-    }
-  }
-}
-```
+Looking for the previous README with demos and installation?
+- EN: See the archived Legacy Usage and Installation Guide here: [LEGACY-USAGE-AND-INSTALLATION.md](./LEGACY-USAGE-AND-INSTALLATION.md)
+- JA: 以前のデモおよびインストール手順は次のアーカイブ文書をご参照ください: [LEGACY-USAGE-AND-INSTALLATION.md](./LEGACY-USAGE-AND-INSTALLATION.md)
+- KO: 기존 데모와 설치 안내는 다음 보관 문서를 참고해 주세요: [LEGACY-USAGE-AND-INSTALLATION.md](./LEGACY-USAGE-AND-INSTALLATION.md)
